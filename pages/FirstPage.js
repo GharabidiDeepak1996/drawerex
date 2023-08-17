@@ -1,17 +1,18 @@
 // React Navigation Drawer with Sectioned Menu Options & Footer
 // https://aboutreact.com/navigation-drawer-sidebar-menu-with-sectioned-menu-options-footer/
 
-import * as React from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
+import * as React from "react";
+import { SafeAreaView, StyleSheet, View, Text } from "react-native";
 
 const FirstPage = () => {
+  //deepak
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, padding: 16}}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, padding: 16 }}>
         <View style={styles.container}>
           <Text style={styles.textStyle}>
             React Navigation Drawer with Sectioned Menu Options & Footer
-            {'\n\n'}
+            {"\n\n"}
             This is the First Page
           </Text>
         </View>
@@ -27,22 +28,22 @@ const FirstPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   textStyle: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
   },
   footerHeading: {
     fontSize: 18,
-    textAlign: 'center',
-    color: 'grey',
+    textAlign: "center",
+    color: "grey",
   },
   footerText: {
     fontSize: 16,
-    textAlign: 'center',
-    color: 'grey',
+    textAlign: "center",
+    color: "grey",
   },
 });
 
