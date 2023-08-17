@@ -1,13 +1,14 @@
 // React Navigation Drawer with Sectioned Menu Options & Footer
 // https://aboutreact.com/navigation-drawer-sidebar-menu-with-sectioned-menu-options-footer/
 
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, View, StyleSheet, Text } from "react-native";
-
+import { AntDesign } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 const CustomSidebarMenu = (props) => {
   const { state, descriptors, navigation } = props;
+  const [viewIsVisible,setViewIsVisible] = useState(false)
   let lastGroupName = "";
   let newGroup = true;
 
@@ -17,10 +18,13 @@ const CustomSidebarMenu = (props) => {
         {state.routes.map((route) => {
           const { drawerLabel, activeTintColor, groupName } =
             descriptors[route.key].options;
+
+
           if (lastGroupName !== groupName) {
             newGroup = true;
             lastGroupName = groupName;
           } else newGroup = false;
+
           return (
             <>
               {newGroup ? (
@@ -28,10 +32,15 @@ const CustomSidebarMenu = (props) => {
                   <Text key={groupName} style={{ marginLeft: 16 }}>
                     {groupName}
                   </Text>
-                  <View style={styles.sectionLine} />
+                  <AntDesign name="caretdown" size={24} color="black" onPress={(e)=>{
+                                console.log("dfs",e,state.index,state.routes.findIndex((e) => {e.name === route.name}))
+
+                    setViewIsVisible(true)}} />
+                  {/* <View style={styles.sectionLine} /> */}
                 </View>
               ) : null}
-              <DrawerItem
+             
+             {viewIsVisible &&  <DrawerItem
                 key={route.key}
                 label={({ color }) => (
                   <Text style={{ color }}>{drawerLabel}</Text>
@@ -42,7 +51,8 @@ const CustomSidebarMenu = (props) => {
                 }
                 activeTintColor={activeTintColor}
                 onPress={() => navigation.navigate(route.name)}
-              />
+              />}
+             
             </>
           );
         })}
@@ -60,9 +70,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 10,
+    backgroundColor:"yellow"
   },
   sectionLine: {
-    backgroundColor: "gray",
+    backgroundColor: "red",
     flex: 1,
     height: 1,
     marginLeft: 10,
