@@ -3,12 +3,13 @@
 
 import React, { useState } from "react";
 import { SafeAreaView, View, StyleSheet, Text } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 const CustomSidebarMenu = (props) => {
   const { state, descriptors, navigation } = props;
-  const [viewIsVisible,setViewIsVisible] = useState(false)
+  const [viewIsVisible, setViewIsVisible] = useState(false);
+  const [headerPosition, setHeaderPosition] = useState();
   let lastGroupName = "";
   let newGroup = true;
 
@@ -16,9 +17,8 @@ const CustomSidebarMenu = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
         {state.routes.map((route) => {
-          const { drawerLabel, activeTintColor, groupName } =
+          const { drawerLabel, activeTintColor, groupName, groupIndex } =
             descriptors[route.key].options;
-
 
           if (lastGroupName !== groupName) {
             newGroup = true;
@@ -32,27 +32,34 @@ const CustomSidebarMenu = (props) => {
                   <Text key={groupName} style={{ marginLeft: 16 }}>
                     {groupName}
                   </Text>
-                  <AntDesign name="caretdown" size={24} color="black" onPress={(e)=>{
-                                console.log("dfs",e,state.index,state.routes.findIndex((e) => {e.name === route.name}))
-
-                    setViewIsVisible(true)}} />
+                  <AntDesign
+                    name="caretdown"
+                    size={24}
+                    color="black"
+                    onPress={(e) => {
+                      console.log("dfs", !viewIsVisible);
+                      setHeaderPosition(groupIndex);
+                      setViewIsVisible(!viewIsVisible);
+                    }}
+                  />
                   {/* <View style={styles.sectionLine} /> */}
                 </View>
               ) : null}
-             
-             {viewIsVisible &&  <DrawerItem
-                key={route.key}
-                label={({ color }) => (
-                  <Text style={{ color }}>{drawerLabel}</Text>
-                )}
-                focused={
-                  state.index ===
-                  state.routes.findIndex((e) => e.name === route.name)
-                }
-                activeTintColor={activeTintColor}
-                onPress={() => navigation.navigate(route.name)}
-              />}
-             
+
+              {viewIsVisible && groupIndex === headerPosition && (
+                <DrawerItem
+                  key={route.key}
+                  label={({ color }) => (
+                    <Text style={{ color }}>{drawerLabel}</Text>
+                  )}
+                  focused={
+                    state.index ===
+                    state.routes.findIndex((e) => e.name === route.name)
+                  }
+                  activeTintColor={activeTintColor}
+                  onPress={() => navigation.navigate(route.name)}
+                />
+              )}
             </>
           );
         })}
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 10,
-    backgroundColor:"yellow"
+    backgroundColor: "yellow",
   },
   sectionLine: {
     backgroundColor: "red",

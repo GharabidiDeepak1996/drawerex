@@ -134,6 +134,7 @@ function App() {
           options={{
             drawerLabel: "First page Option",
             // Section/Group Name
+            groupIndex: 0,
             groupName: "Section 1",
             activeTintColor: "#e91e63",
           }}
@@ -144,6 +145,7 @@ function App() {
           options={{
             drawerLabel: "Second page Option",
             // Section/Group Name
+            groupIndex: 1,
             groupName: "Section 2",
             activeTintColor: "#e91e63",
           }}
@@ -154,6 +156,7 @@ function App() {
           options={{
             drawerLabel: "Third page Option",
             // Section/Group Name
+            groupIndex: 1,
             groupName: "Section 2",
             activeTintColor: "#e91e63",
           }}
